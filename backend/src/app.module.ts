@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ClientesModule } from './clientes/clientes.module';
+import { ClientesModule } from './modules/auth/gestion/clientes/clientes.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth/auth.module';
