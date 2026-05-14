@@ -5,7 +5,9 @@ import {
   Put,
   Param,
   Body,
+  Query,
 } from '@nestjs/common';
+
 import { ClientesService } from './clientes.service';
 
 @Controller('clientes')
@@ -13,19 +15,22 @@ export class ClientesController {
 
   constructor(private readonly clientesService: ClientesService) {}
 
-  //GET
+  // GET
   @Get()
-  findAll() {
-    return this.clientesService.findAll();
+  findAll(
+    @Query('nombre') nombre?: string,
+    @Query('estado') estado?: string,
+  ) {
+    return this.clientesService.findAll(nombre, estado);
   }
 
-  //POST
+  // POST
   @Post()
   create(@Body() body: any) {
     return this.clientesService.create(body);
   }
 
-  //PUT
+  // PUT
   @Put(':id')
   update(
     @Param('id') id: string,

@@ -21,9 +21,21 @@ export class ClientesService {
   ) {}
 
   // LISTAR CLIENTES
-  findAll() {
-    return this.clienteRepository.find();
+  async findAll(nombre?: string, estado?: string) {
+  const where: any = {};
+
+  if (nombre) {
+    where.nombre = nombre;
   }
+
+  if (estado) {
+    where.estado = estado;
+  }
+
+  return this.clienteRepository.find({
+    where,
+  });
+}
 
   // CREAR CLIENTE
   create(data: Partial<Cliente>) {
