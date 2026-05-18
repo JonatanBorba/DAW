@@ -1,0 +1,17 @@
+<h2>Proyectos</h2>
+
+<table border="1" width="100%">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Estado</th>
+    <th>Cliente</th>
+  </tr>
+
+  <tr *ngFor="let p of proyectos">
+    <td>{{ p.id }}</td>
+    <td>{{ p.nombre }}</td>
+    <td>{{ p.estado }}</td>
+    <td>{{ p.cliente?.nombre || 'Interno' }}</td>
+  </tr>
+</table>
