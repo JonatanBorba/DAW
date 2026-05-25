@@ -23,7 +23,7 @@ export class ProyectosService {
 
     let url = this.apiUrl;
 
-    const params = [];
+    const params: string[] = [];
 
     if (estado) {
       params.push(`estado=${estado}`);

@@ -41,7 +41,7 @@ export class ProyectosListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.clientesService.getClientes().subscribe(data => {
+    this.clientesService.getClientes().subscribe((data: any []) => {
 
       this.clientes = data;
 
@@ -58,14 +58,10 @@ export class ProyectosListComponent implements OnInit {
         this.filtroEstado,
         this.filtroCliente
       )
-      .subscribe(data => {
-
+      .subscribe((data: any[]) => {
         this.proyectos = data;
-
         this.cd.detectChanges();
-
       });
-
   }
 
 }

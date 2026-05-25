@@ -27,11 +27,11 @@ export class ClientesList implements OnInit {
 
 cargar() {
   this.clientesService.getClientes().subscribe({
-    next: (data) => {
+    next: (data : any) => {
       console.log('DATA RAW:', data);
       this.clientes = [...data]; 
     },
-    error: (err) => console.error(err),
+    error: (err : any) => console.error(err),
   });
 }
 
