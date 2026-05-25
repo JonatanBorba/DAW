@@ -4,9 +4,11 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 import { Cliente } from '../modules/gestion/clientes/cliente.entity';
+import { Tarea } from '../modules/tareas/tarea.entity';
 
 export enum EstadoProyecto {
   ACTIVO = 'Activo',
@@ -34,4 +36,7 @@ export class Proyecto {
   })
   @JoinColumn({ name: 'clienteId' })
   cliente!: Cliente | null;
+
+  @OneToMany(() => Tarea, tarea => tarea.proyecto)
+  tareas!: Tarea[];
 }
