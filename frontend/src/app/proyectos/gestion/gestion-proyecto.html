@@ -20,6 +20,16 @@
     </div>
 
     <div class="form-group">
+      <button
+        pButton
+        type="button"
+        label="Gestionar clientes"
+        class="p-button-text"
+        (click)="gestionarClientes()"
+      ></button>
+    </div>
+
+    <div class="form-group">
       <label>Estado</label>
       <select formControlName="estado">
         <option value="Activo">Activo</option>

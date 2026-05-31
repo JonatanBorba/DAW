@@ -7,13 +7,13 @@ import {
   Body,
   ParseIntPipe,
   Query,
-  UseGuards,
+  //UseGuards,
 } from '@nestjs/common';
 
 import { ProyectosService } from './proyectos.service';
-import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @Controller('proyectos')
 export class ProyectosController {
   constructor(private readonly proyectosService: ProyectosService) {}
@@ -39,5 +39,10 @@ export class ProyectosController {
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
     return this.proyectosService.update(id, body);
+  }
+
+  @Get('estadisticas/resumen')
+  getResumenEstadisticas() {
+    return this.proyectosService.getResumenEstadisticas();
   }
 }

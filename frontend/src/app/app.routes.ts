@@ -4,6 +4,8 @@ import { ProyectosListComponent } from './pages/proyectos-list/proyectos-list';
 import { ProyectoFormComponent } from './pages/proyecto-form/proyecto-form';
 import { ClientesList } from './pages/clientes-list/clientes-list';
 import { LoginComponent } from './pages/login/login';
+import { TareasListComponent } from './pages/tareas-list/tareas-list';
+import { EstadisticasPage } from './pages/estadisticas/estadisticas';
 
 export const routes: Routes = [
   {
@@ -27,8 +29,16 @@ export const routes: Routes = [
     component: ProyectoFormComponent,
   },
   {
+    path: 'proyectos/:id/tareas',
+    component: TareasListComponent,
+  },
+  {
     path: 'clientes',
     component: ClientesList,
+  },
+  {
+    path: 'estadisticas',
+    component: EstadisticasPage,
   },
   {
     path: '',

@@ -1,0 +1,56 @@
+<app-template>
+  <div class="tareas-page">
+    <h2 class="tareas-header">
+      <span><strong>Proyecto:</strong> {{ proyecto?.nombre }}</span>
+      <span *ngIf="proyecto">
+        <strong>Cliente:</strong>
+        {{ proyecto?.cliente ? proyecto?.cliente?.nombre : 'Proyecto interno' }}
+      </span>
+      <span *ngIf="proyecto"> <strong>Estado:</strong> {{ proyecto?.estado }} </span>
+    </h2>
+
+    <div class="acciones">
+      <button pButton type="button" label="Crear tarea" (click)="crearTarea()"></button>
+    </div>
+
+    <p-table [value]="tareas" [loading]="cargando" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Descripción</th>
+          <th>Estado</th>
+          <th style="width: 10rem">Acciones</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-tarea>
+        <tr>
+          <td>{{ tarea.descripcion }}</td>
+          <td>{{ tarea.estado }}</td>
+          <td>
+            <button
+              pButton
+              type="button"
+              label="Editar"
+              class="p-button-text p-button-sm"
+              (click)="editarTarea(tarea)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              label="Eliminar"
+              class="p-button-danger p-button-sm"
+              (click)="eliminarTarea(tarea)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</app-template>
+
+<app-gestion-tarea
+  [(visible)]="dialogVisible"
+  [proyectoId]="proyectoId"
+  [(tareaSeleccionada)]="tareaSeleccionada"
+  (guardado)="cargarTareas()"
+></app-gestion-tarea>

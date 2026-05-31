@@ -7,16 +7,16 @@ import {
   Post,
   Put,
   Delete,
-  UseGuards,
+  //UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { TareasService } from './tareas.service';
 import { CreateTareaDto } from './dtos/input/create-tarea.dto';
 import { UpdateTareaDto } from './dtos/input/update-tarea.dto';
-import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
 
 @ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @Controller('proyectos/:proyectoId/tareas')
 export class TareasController {
   constructor(private readonly tareasService: TareasService) {}

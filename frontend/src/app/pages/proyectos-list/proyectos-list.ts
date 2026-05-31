@@ -77,6 +77,10 @@ export class ProyectosListComponent implements OnInit {
   }
 
   gestionarTareas(proyecto: any): void {
-    this.router.navigate(['/proyectos', proyecto.id]);
+    this.router.navigate(['/proyectos', proyecto.id, 'tareas']);
+  }
+
+  irAEstadisticas(): void {
+    this.router.navigate(['/estadisticas']);
   }
 }

@@ -7,6 +7,36 @@ body {
   background-color: #d3d7e7; /* color más claro de la paleta */
 }
 
+/* Estilo global para botones PrimeNG usando la paleta azul */
+.p-button,
+.p-button.p-button-primary {
+  background-color: #465779;
+  border-color: #465779;
+  border-radius: 9999px;
+}
+
+.p-button:hover,
+.p-button.p-button-primary:hover {
+  background-color: #221831;
+  border-color: #221831;
+}
+
+.p-button.p-button-text {
+  background-color: transparent;
+  color: #465779;
+  border-color: transparent;
+}
+
+.p-button.p-button-danger {
+  background-color: #b00020;
+  border-color: #b00020;
+}
+
+.p-button.p-button-danger:hover {
+  background-color: #7c0017;
+  border-color: #7c0017;
+}
+
 /* Botón "Crear Proyecto" (PrimeNG p-button) - primario */
 #boton-crear-proyecto {
   margin: 1rem 1rem 0 1rem;

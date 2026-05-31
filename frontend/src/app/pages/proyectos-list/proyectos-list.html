@@ -1,10 +1,20 @@
 <app-template>
-  <p-button
-    id="boton-crear-proyecto"
-    icon="pi pi-plus"
-    label="Crear Proyecto"
-    (click)="crearProyecto()"
-  ></p-button>
+  <div class="acciones-superiores">
+    <p-button
+      id="boton-crear-proyecto"
+      icon="pi pi-plus"
+      label="Crear Proyecto"
+      (click)="crearProyecto()"
+    ></p-button>
+
+    <p-button
+      id="boton-ver-estadisticas"
+      icon="pi pi-chart-bar"
+      label="Ver estadísticas"
+      styleClass="p-button-secondary"
+      (click)="irAEstadisticas()"
+    ></p-button>
+  </div>
 
   <p-table
     id="tabla"

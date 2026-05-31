@@ -7,17 +7,26 @@ import { SelectModule } from 'primeng/select';
 import { ButtonModule } from 'primeng/button';
 import { ProyectosService } from '../../services/proyectos';
 import { ClientesService } from '../../services/clientes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-proyecto',
   standalone: true,
-  imports: [CommonModule, DialogModule, InputTextModule, SelectModule, ButtonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    DialogModule,
+    InputTextModule,
+    SelectModule,
+    ButtonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './gestion-proyecto.html',
   styleUrls: ['./gestion-proyecto.css'],
 })
 export class GestionProyectoComponent {
   private readonly proyectosService = inject(ProyectosService);
   private readonly clientesService = inject(ClientesService);
+  private readonly router = inject(Router);
 
   @Input() visible = false;
   @Output() visibleChange = new EventEmitter<boolean>();
@@ -37,7 +46,8 @@ export class GestionProyectoComponent {
 
   ngOnInit(): void {
     this.clientesService.getClientes().subscribe((data) => {
-      this.clientes = data;
+      // Solo mostrar clientes activos para que cumpla la consigna
+      this.clientes = data.filter((c: any) => c.estado === 'Activo');
     });
   }
 
@@ -73,15 +83,32 @@ export class GestionProyectoComponent {
     };
 
     if (this.proyectoSeleccionado) {
-      this.proyectosService.updateProyecto(this.proyectoSeleccionado.id, body).subscribe(() => {
-        this.guardado.emit();
-        this.cerrar();
+      this.proyectosService.updateProyecto(this.proyectoSeleccionado.id, body).subscribe({
+        next: () => {
+          this.guardado.emit();
+          this.cerrar();
+        },
+        error: (err) => {
+          console.error(err);
+          alert('No se pudo guardar el proyecto. Verifique que el cliente esté Activo.');
+        },
       });
     } else {
-      this.proyectosService.createProyecto(body).subscribe(() => {
-        this.guardado.emit();
-        this.cerrar();
+      this.proyectosService.createProyecto(body).subscribe({
+        next: () => {
+          this.guardado.emit();
+          this.cerrar();
+        },
+        error: (err) => {
+          console.error(err);
+          alert('No se pudo crear el proyecto. Verifique que el cliente esté Activo.');
+        },
       });
     }
+  }
+
+  gestionarClientes(): void {
+    this.cerrar();
+    this.router.navigate(['/clientes']);
   }
 }

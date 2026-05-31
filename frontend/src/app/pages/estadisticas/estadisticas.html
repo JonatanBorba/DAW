@@ -1,0 +1,33 @@
+<app-template>
+  <div class="estadisticas-page">
+    <h2>Estadísticas</h2>
+
+    <div *ngIf="cargando" class="cargando">Cargando estadísticas...</div>
+
+    <div class="tarjetas" *ngIf="!cargando && resumen as r">
+      <div class="tarjeta">
+        <div class="titulo">Proyectos activos</div>
+        <div class="valor">{{ r.proyectosActivos }}</div>
+      </div>
+      <div class="tarjeta">
+        <div class="titulo">Tareas pendientes</div>
+        <div class="valor">{{ r.tareasPendientes }}</div>
+      </div>
+    </div>
+
+    <table class="tabla" *ngIf="!cargando && resumen as r">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Cantidad de proyectos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of r.proyectosPorCliente">
+          <td>{{ item.cliente }}</td>
+          <td>{{ item.cantidad }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</app-template>
