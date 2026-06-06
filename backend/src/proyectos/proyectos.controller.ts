@@ -7,17 +7,16 @@ import {
   Body,
   ParseIntPipe,
   Query,
-  UseGuards,
+  //UseGuards,
 } from '@nestjs/common';
 
 import { ProyectosService } from './proyectos.service';
-import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
+//import { JwtAuthGuard } from '../modules/auth/guards/jwt-auth.guard';
 
-@UseGuards(JwtAuthGuard)
+//@UseGuards(JwtAuthGuard)
 @Controller('proyectos')
 export class ProyectosController {
   constructor(private readonly proyectosService: ProyectosService) {}
-
 
   @Get()
   findAll(
@@ -26,7 +25,6 @@ export class ProyectosController {
   ) {
     return this.proyectosService.findAll(estado, clienteId);
   }
-
 
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
@@ -38,9 +36,13 @@ export class ProyectosController {
     return this.proyectosService.create(body);
   }
 
-
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() body: any) {
     return this.proyectosService.update(id, body);
+  }
+
+  @Get('estadisticas/resumen')
+  getResumenEstadisticas() {
+    return this.proyectosService.getResumenEstadisticas();
   }
 }

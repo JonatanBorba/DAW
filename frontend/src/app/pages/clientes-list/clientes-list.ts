@@ -11,13 +11,13 @@ import { ClientesService } from '../../services/clientes';
   styleUrls: ['./clientes-list.css'],
 })
 export class ClientesList implements OnInit {
-
   clientes: any[] = [];
 
   nombre = '';
   estado = 'Activo';
 
   editandoId: number | null = null;
+  mostrarErrorNombre = false;
 
   constructor(private clientesService: ClientesService) {}
 
@@ -25,6 +25,7 @@ export class ClientesList implements OnInit {
     this.cargar();
   }
 
+<<<<<<< HEAD
 cargar() {
   this.clientesService.getClientes().subscribe({
     next: (data : any) => {
@@ -39,42 +40,57 @@ guardar() {
   if (!this.nombre || this.nombre.trim() === '') {
     alert('El nombre es obligatorio');
     return;
+=======
+  cargar() {
+    this.clientesService.getClientes().subscribe({
+      next: (data) => {
+        console.log('DATA RAW:', data);
+        this.clientes = [...data];
+      },
+      error: (err) => console.error(err),
+    });
+>>>>>>> upstream/master
   }
 
-  const data = {
-    nombre: this.nombre,
-    estado: this.estado,
-  };
+  guardar() {
+    if (!this.nombre || this.nombre.trim() === '') {
+      alert('El nombre es obligatorio');
+      return;
+    }
 
-  if (this.editandoId) {
-    this.clientesService.updateCliente(this.editandoId, data)
-      .subscribe(() => {
+    const data = {
+      nombre: this.nombre,
+      estado: this.estado,
+    };
+
+    if (this.editandoId) {
+      this.clientesService.updateCliente(this.editandoId, data).subscribe(() => {
         this.limpiar();
         this.cargar();
       });
-  } else {
-    this.clientesService.crearCliente(data)
-      .subscribe(() => {
+    } else {
+      this.clientesService.crearCliente(data).subscribe(() => {
         this.limpiar();
         this.cargar();
       });
+    }
   }
-}
 
   editar(c: any) {
     this.nombre = c.nombre;
     this.estado = c.estado;
     this.editandoId = c.id;
+    this.mostrarErrorNombre = false;
   }
 
   limpiar() {
     this.nombre = '';
     this.estado = 'Activo';
     this.editandoId = null;
+    this.mostrarErrorNombre = false;
   }
 
   darBaja(id: number) {
-    this.clientesService.updateCliente(id, { estado: 'Baja' })
-      .subscribe(() => this.cargar());
+    this.clientesService.updateCliente(id, { estado: 'Baja' }).subscribe(() => this.cargar());
   }
 }

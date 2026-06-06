@@ -4,11 +4,16 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
 
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ProyectosService } from '../../services/proyectos';
 
 import { ClientesService } from '../../services/clientes';
+import { TemplateComponent } from '../../template/template';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
+import { GestionProyectoComponent } from '../../proyectos/gestion/gestion-proyecto';
 
 @Component({
   selector: 'app-proyectos-list',
@@ -17,14 +22,16 @@ import { ClientesService } from '../../services/clientes';
   imports: [
     CommonModule,
     FormsModule,
-    RouterLink
+    TemplateComponent,
+    ButtonModule,
+    TableModule,
+    TooltipModule,
+    GestionProyectoComponent,
   ],
 
   templateUrl: './proyectos-list.html',
 })
-
 export class ProyectosListComponent implements OnInit {
-
   proyectos: any[] = [];
 
   clientes: any[] = [];
@@ -33,26 +40,35 @@ export class ProyectosListComponent implements OnInit {
 
   filtroCliente = '';
 
+  dialogVisible = false;
+  proyectoSeleccionado: any | null = null;
+
   constructor(
     private proyectosService: ProyectosService,
     private clientesService: ClientesService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
+<<<<<<< HEAD
 
     this.clientesService.getClientes().subscribe((data: any []) => {
 
+=======
+    this.clientesService.getClientes().subscribe((data) => {
+>>>>>>> upstream/master
       this.clientes = data;
-
     });
 
     this.cargarProyectos();
-
   }
 
   cargarProyectos() {
+    this.proyectosService.getProyectos(this.filtroEstado, this.filtroCliente).subscribe((data) => {
+      this.proyectos = data;
 
+<<<<<<< HEAD
     this.proyectosService
       .getProyectos(
         this.filtroEstado,
@@ -62,6 +78,27 @@ export class ProyectosListComponent implements OnInit {
         this.proyectos = data;
         this.cd.detectChanges();
       });
+=======
+      this.cd.detectChanges();
+    });
+>>>>>>> upstream/master
   }
 
+  crearProyecto(): void {
+    this.proyectoSeleccionado = null;
+    this.dialogVisible = true;
+  }
+
+  editarProyecto(proyecto: any): void {
+    this.proyectoSeleccionado = proyecto;
+    this.dialogVisible = true;
+  }
+
+  gestionarTareas(proyecto: any): void {
+    this.router.navigate(['/proyectos', proyecto.id, 'tareas']);
+  }
+
+  irAEstadisticas(): void {
+    this.router.navigate(['/estadisticas']);
+  }
 }
