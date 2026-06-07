@@ -68,4 +68,11 @@ export class ProyectosListComponent implements OnInit {
 
   }
 
+    estaRetrasado(fecha: string): boolean {
+       if (!fecha) {
+        return false;
+      }
+    return new Date(fecha) < new Date();
+}
+
 }

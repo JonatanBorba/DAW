@@ -11,6 +11,7 @@ import { ProyectosService } from '../../services/proyectos';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './proyecto-form.html',
+  styleUrls: ['./proyecto-form.css']
 })
 export class ProyectoFormComponent implements OnInit {
 
@@ -20,10 +21,12 @@ export class ProyectoFormComponent implements OnInit {
 
 proyectoId: number | null = null;
 
-  proyecto = {
+    proyecto = {
     nombre: '',
     estado: 'Activo',
-    clienteId: ''
+    clienteId: '',
+    fechaInicio: '',
+    fechaFinObjetivo: '',
   };
 
   constructor(
@@ -54,10 +57,12 @@ proyectoId: number | null = null;
     this.proyectosService.getProyecto(this.proyectoId)
       .subscribe(data => {
 
-        this.proyecto = {
+       this.proyecto = {
           nombre: data.nombre,
           estado: data.estado,
-          clienteId: data.cliente?.id || ''
+          clienteId: data.cliente?.id || '',
+          fechaInicio: data.fechaInicio || '',
+          fechaFinObjetivo: data.fechaFinObjetivo || '',
         };
 
       });
@@ -71,7 +76,9 @@ proyectoId: number | null = null;
   const data = {
     nombre: this.proyecto.nombre,
     estado: this.proyecto.estado,
-    clienteId: this.proyecto.clienteId || null
+    clienteId: this.proyecto.clienteId || null,
+    fechaInicio: this.proyecto.fechaInicio,
+    fechaFinObjetivo: this.proyecto.fechaFinObjetivo,
   };
 
   if (this.modoEdicion && this.proyectoId) {

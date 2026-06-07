@@ -29,10 +29,10 @@ export class Proyecto {
   })
   estado!: EstadoProyecto;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   fechaInicio!: Date;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   fechaFinObjetivo!: Date;
 
   @ManyToOne(() => Cliente, {
