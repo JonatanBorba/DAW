@@ -6,13 +6,17 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'http://localhost:4200',
+    origin: ['http://localhost:4200', 'https://localhost'],
   });
+
+  app.setGlobalPrefix('api');
 
   const usersService = app.get(UsersService);
   await usersService.createAdminIfNotExists();
 
-  await app.listen(3000);
+  const port = process.env.PORT || 4000;
+
+  await app.listen(port);
 }
 
 bootstrap().catch((err) => {
