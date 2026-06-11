@@ -45,31 +45,61 @@ export class ProyectosService {
       relations: ['cliente'],
     });
   }
+ 
+async create(data: any) {
 
-  async create(data: any) {
-    if (data.clienteId) {
-      const cliente = await this.clientesRepository.findOne({
-        where: { id: Number(data.clienteId) },
-      });
+  if (
+    data.fechaInicio &&
+    data.fechaFinObjetivo &&
+    new Date(data.fechaFinObjetivo) <= new Date(data.fechaInicio)
+  ) {
+    throw new Error(
+      'La fecha de finalización debe ser posterior a la fecha de inicio',
+    );
+  }
+
+  if (data.clienteId) {
+
+    const cliente = await this.clientesRepository.findOne({
+      where: { id: Number(data.clienteId) },
+    });
 
       if (!cliente || cliente.estado !== 'Activo') {
         throw new Error('El cliente debe estar Activo');
       }
     }
 
-    const proyecto = this.proyectosRepository.create({
+  const proyecto = this.proyectosRepository.create({
+
       nombre: data.nombre,
 
       estado: data.estado,
 
-      cliente: data.clienteId ? ({ id: Number(data.clienteId) } as any) : null,
+      fechaInicio: data.fechaInicio,
+
+      fechaFinObjetivo: data.fechaFinObjetivo,
+
+      cliente: data.clienteId
+        ? ({ id: Number(data.clienteId) } as any)
+     : null,
     });
 
     return this.proyectosRepository.save(proyecto);
   }
 
-  async update(id: number, data: any) {
-    if (data.clienteId) {
+async update(id: number, data: any) {
+
+    if (
+      data.fechaInicio &&
+      data.fechaFinObjetivo &&
+      new Date(data.fechaFinObjetivo) <= new Date(data.fechaInicio)
+    ) {
+      throw new Error(
+        'La fecha de finalización debe ser posterior a la fecha de inicio',
+      );
+    }
+
+    if (data.clienteId){
       const cliente = await this.clientesRepository.findOne({
         where: { id: Number(data.clienteId) },
       });
@@ -78,7 +108,6 @@ export class ProyectosService {
         throw new Error('El cliente debe estar Activo');
       }
     }
-
     const proyecto = await this.findOne(id);
 
     if (!proyecto) {
@@ -87,6 +116,10 @@ export class ProyectosService {
 
     proyecto.nombre = data.nombre;
     proyecto.estado = data.estado;
+
+    proyecto.fechaInicio = data.fechaInicio;
+
+    proyecto.fechaFinObjetivo = data.fechaFinObjetivo;
 
     proyecto.cliente = data.clienteId
       ? ({ id: Number(data.clienteId) } as any)

@@ -1,6 +1,11 @@
-<h2>Nuevo Proyecto</h2>
+<div class="modal-backdrop">
+  <div class="modal-box">
 
-<form (ngSubmit)="guardarProyecto()">
+    <h2>
+      {{ modoEdicion ? 'Editar Proyecto' : 'Nuevo Proyecto' }}
+    </h2>
+
+    <form (ngSubmit)="guardarProyecto()">
 
   <div>
     <label>Nombre</label>
@@ -37,7 +42,32 @@
     </select>
   </div>
 
+
   <br>
+
+  <div>
+    <label>Fecha de inicio</label>
+    <br>
+
+    <input
+      type="date"
+      [(ngModel)]="proyecto.fechaInicio"
+      name="fechaInicio">
+  </div>
+
+  <br>
+
+  <div>
+    <label>Fecha fin objetivo</label>
+    <br>
+
+    <input
+      type="date"
+      [(ngModel)]="proyecto.fechaFinObjetivo"
+      name="fechaFinObjetivo">
+  </div>
+
+    <br>
 
   <div>
     <label>Cliente</label>
@@ -64,8 +94,13 @@
 
   <br>
 
-  <button type="submit">
-    Guardar
-  </button>
+ <div class="actions">
+        <button type="submit">
+          Guardar
+        </button>
+      </div>
 
-</form>
+    </form>
+
+  </div>
+</div>

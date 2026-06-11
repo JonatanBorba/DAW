@@ -80,6 +80,15 @@ export class ProyectosListComponent implements OnInit {
     this.router.navigate(['/proyectos', proyecto.id, 'tareas']);
   }
 
+  estaRetrasado(fecha: string): boolean {
+    if (!fecha) {
+      return false;
+    }
+
+    return new Date(fecha) < new Date();
+  }
+
+
   irAEstadisticas(): void {
     this.router.navigate(['/estadisticas']);
   }

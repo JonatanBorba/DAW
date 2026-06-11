@@ -1,0 +1,41 @@
+h2 {
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #b00020;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.retrasado {
+  color: #b00020;
+  font-weight: bold;
+}
+
+.en-plazo {
+  color: green;
+  font-weight: bold;
+}
