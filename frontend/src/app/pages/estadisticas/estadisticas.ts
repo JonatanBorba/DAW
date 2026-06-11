@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateComponent } from '../../template/template';
 import { EstadisticasService, ResumenEstadisticas } from '../../services/estadisticas';
@@ -12,6 +12,7 @@ import { EstadisticasService, ResumenEstadisticas } from '../../services/estadis
 })
 export class EstadisticasPage implements OnInit {
   private readonly estadisticasService = inject(EstadisticasService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   resumen: ResumenEstadisticas | null = null;
   cargando = false;
@@ -20,9 +21,9 @@ export class EstadisticasPage implements OnInit {
     this.cargando = true;
     this.estadisticasService.getResumen().subscribe({
       next: (data) => {
-        console.log('RESUMEN ESTADISTICAS', data);
         this.resumen = data;
         this.cargando = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
