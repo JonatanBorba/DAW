@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
 export class ProyectosService {
 
-  private apiUrl = 'http://localhost:3000/proyectos';
+  private apiUrl = '/api/proyectos';
 
   constructor(
     private http: HttpClient
