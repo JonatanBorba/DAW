@@ -42,8 +42,13 @@ export class TareasController {
     return this.tareasService.actualizarTarea(id, dto);
   }
 
-  @Delete(':id')
+ // @Delete(':id')
+ // eliminar(@Param('id', ParseIntPipe) id: number) {
+ //   return this.tareasService.eliminarTarea(id);
+ // }
+
+ @Put(':id/baja')
   eliminar(@Param('id', ParseIntPipe) id: number) {
-    return this.tareasService.eliminarTarea(id);
-  }
+  return this.tareasService.eliminarTarea(id);
+ }
 }

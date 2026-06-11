@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -32,6 +32,7 @@ export class TareasListComponent implements OnInit {
   private readonly proyectosService = inject(ProyectosService);
   private readonly tareasService = inject(TareasService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly router = inject(Router);
 
   proyectoId!: number;
   proyecto: any | null = null;
@@ -70,6 +71,7 @@ export class TareasListComponent implements OnInit {
   cargarProyecto(): void {
     this.proyectosService.getProyecto(this.proyectoId).subscribe((data) => {
       this.proyecto = data;
+      this.cdr.detectChanges();
     });
   }
 
@@ -130,5 +132,9 @@ export class TareasListComponent implements OnInit {
    link.download = `tareas-proyecto-${new Date().getFullYear()}.csv`;
    link.click();
    URL.revokeObjectURL(url);
+  }
+
+  volver(): void {
+    this.router.navigate(['/proyectos']);
   }
 }

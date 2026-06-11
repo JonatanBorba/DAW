@@ -36,7 +36,11 @@ export class TareasService {
     return this.http.put<void>(`${this.apiUrl}/${proyectoId}/tareas/${tareaId}`, dto);
   }
 
-  eliminarTarea(proyectoId: number, tareaId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${proyectoId}/tareas/${tareaId}`);
-  }
+  //eliminarTarea(proyectoId: number, tareaId: number): Observable<void> {
+  //return this.http.delete<void>(`${this.apiUrl}/${proyectoId}/tareas/${tareaId}`);
+ //}
+
+ eliminarTarea(proyectoId: number, tareaId: number): Observable<void> {
+  return this.http.put<void>(`${this.apiUrl}/${proyectoId}/tareas/${tareaId}/baja`, {});
+}
 }
