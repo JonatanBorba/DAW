@@ -33,6 +33,9 @@ export class ClientesList implements OnInit {
 
   nombre = '';
   estado = 'Activo';
+  email = '';
+  telefono = '';
+
   dialogVisible = false;
 
   estadoOpciones = [
@@ -43,7 +46,11 @@ export class ClientesList implements OnInit {
   editandoId: number | null = null;
   mostrarErrorNombre = false;
 
-  constructor(private clientesService: ClientesService, private cdr: ChangeDetectorRef, private router: Router) {}
+  constructor(
+    private clientesService: ClientesService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.cargar();
@@ -60,17 +67,37 @@ export class ClientesList implements OnInit {
   }
 
   mostrarDialog() {
+    console.log('CLICK OK');
     this.limpiar();
     this.dialogVisible = true;
   }
 
   guardar() {
+    console.log('GUARDAR EJECUTADO');
+
     if (!this.nombre || this.nombre.trim() === '') {
       this.mostrarErrorNombre = true;
       return;
     }
 
-    const data = { nombre: this.nombre, estado: this.estado };
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (this.email && !emailRegex.test(this.email)) {
+      alert('Email inválido');
+      return;
+    }
+
+    const telefonoRegex = /^[0-9]{7,15}$/;
+    if (this.telefono && !telefonoRegex.test(this.telefono)) {
+      alert('Teléfono inválido (solo números, 7 a 15 dígitos)');
+      return;
+    }
+
+    const data = {
+      nombre: this.nombre,
+      estado: this.estado,
+      email: this.email,
+      telefono: this.telefono,
+    };
 
     if (this.editandoId) {
       this.clientesService.updateCliente(this.editandoId, data).subscribe(() => {
@@ -88,6 +115,8 @@ export class ClientesList implements OnInit {
   editar(c: any) {
     this.nombre = c.nombre;
     this.estado = c.estado;
+    this.email = c.email || '';
+    this.telefono = c.telefono || '';
     this.editandoId = c.id;
     this.mostrarErrorNombre = false;
     this.dialogVisible = true;
@@ -96,6 +125,8 @@ export class ClientesList implements OnInit {
   limpiar() {
     this.nombre = '';
     this.estado = 'Activo';
+    this.email = '';
+    this.telefono = '';
     this.editandoId = null;
     this.mostrarErrorNombre = false;
     this.dialogVisible = false;
@@ -104,7 +135,8 @@ export class ClientesList implements OnInit {
   darBaja(id: number) {
     this.clientesService.updateCliente(id, { estado: 'Baja' }).subscribe({
       next: () => this.cargar(),
-      error: (err) => alert(err.error.message || 'No se puede dar de baja este cliente')
+      error: (err) =>
+        alert(err.error.message || 'No se puede dar de baja este cliente'),
     });
   }
 
