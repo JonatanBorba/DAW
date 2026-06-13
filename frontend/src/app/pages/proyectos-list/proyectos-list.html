@@ -139,6 +139,13 @@
             (click)="editarProyecto(proyecto)">
           </p-button>
 
+           <a [routerLink]="['/proyectos', proyecto.id, 'tareas']">
+          <p-button
+            icon="pi pi-check-square"
+            pTooltip="Gestionar tareas">
+          </p-button>
+        </a>
+
         </td>
 
 
